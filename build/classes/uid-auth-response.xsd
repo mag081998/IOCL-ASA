@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.uidai.gov.in/authentication/uid-auth-response/2.0"
+	xmlns:tns="http://www.uidai.gov.in/authentication/uid-auth-response/2.0"
+	elementFormDefault="qualified">
+	<xs:simpleType name="AuthResult">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="y"></xs:enumeration>
+			<xs:enumeration value="n"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BfdRanks">
+		<xs:sequence>
+			<xs:element name="BFDRank" type="tns:BFDRank" minOccurs="0" maxOccurs="10" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BFDRank">
+		<xs:attribute name="pos" use="optional" type="tns:BiometricPosition" />
+		<xs:attribute name="value" use="optional" type="tns:Values" />
+	</xs:complexType>
+	<xs:simpleType name="BiometricPosition">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LEFT_INDEX"></xs:enumeration>
+			<xs:enumeration value="LEFT_LITTLE"></xs:enumeration>
+			<xs:enumeration value="LEFT_MIDDLE"></xs:enumeration>
+			<xs:enumeration value="LEFT_RING"></xs:enumeration>
+			<xs:enumeration value="LEFT_THUMB"></xs:enumeration>
+			<xs:enumeration value="RIGHT_INDEX"></xs:enumeration>
+			<xs:enumeration value="RIGHT_LITTLE"></xs:enumeration>
+			<xs:enumeration value="RIGHT_MIDDLE"></xs:enumeration>
+			<xs:enumeration value="RIGHT_RING"></xs:enumeration>
+			<xs:enumeration value="RIGHT_THUMB"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Values">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="10" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AuthRes">
+	<xs:complexType>
+		<xs:all>
+			<xs:element name="BfdRanks" type="tns:BfdRanks" minOccurs="0" maxOccurs="1" />
+		</xs:all>
+		<xs:attribute name="ret" type="tns:AuthResult" />
+		<xs:attribute name="code" type="xs:string" />
+		<xs:attribute name="txn" type="xs:string" />
+		<xs:attribute name="err" type="xs:string" />
+		<xs:attribute name="info" type="xs:string" />
+		<xs:attribute name="actn" type="xs:string" />
+		<xs:attribute name="ts" type="xs:dateTime" />
+	</xs:complexType>
+	</xs:element>
+</xs:schema>

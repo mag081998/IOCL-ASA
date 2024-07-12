@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.cdac.in/OTP_v1" xmlns:tns="http://www.cdac.in/OTP_v1"
+	xmlns:common="http://www.uidai.gov.in/authentication/common/types/2.0"
+	 elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.uidai.gov.in/authentication/common/types/2.0"
+		schemaLocation="common-types.xsd" />
+
+	<xs:simpleType name="OtpResult">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="y"></xs:enumeration>
+			<xs:enumeration value="n"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="Txn">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9\.,-/():\\]+"></xs:pattern>
+			<!-- <xs:pattern value="[UKC:][a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"></xs:pattern> -->
+			<xs:maxLength value="50"></xs:maxLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OtpRes">
+		<xs:attribute name="txn" type="tns:Txn" />
+		<xs:attribute name="err" type="xs:string" />
+		<xs:attribute name="code" type="xs:string" />
+		<xs:attribute name="ts" type="xs:dateTime" />
+		<xs:attribute name="ret" type="tns:OtpResult" />
+		<xs:attribute name="info" type="xs:string" />
+	</xs:complexType>
+	<xs:element name="OtpRes" type="tns:OtpRes" />
+</xs:schema>

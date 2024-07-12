@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.cdac.in/OTP_v1" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:tns="http://www.cdac.in/OTP_v1" elementFormDefault="qualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+		schemaLocation="xmldsig-core-schema.xsd" />
+	<xs:annotation>
+		<xs:documentation>
+			OTP XSD defines the required data types for the
+			OTP-XML
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="UUID">
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Ver">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2.5" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AuaCode">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]*"></xs:pattern>
+			<xs:maxLength value="10"></xs:maxLength>
+			<xs:minLength value="2"></xs:minLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uid">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{12}"></xs:pattern>
+			<xs:pattern value="\d{16}"></xs:pattern>
+			<xs:pattern value="[0-9a-zA-Z/=+\\]{72}"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LicenseKey">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9_-]*"></xs:pattern>
+			<xs:maxLength value="64"></xs:maxLength>
+			<xs:minLength value="4"></xs:minLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Channel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="00" />
+			<xs:enumeration value="01" />
+			<xs:enumeration value="02" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Opts">
+		<xs:attribute name="ch" type="tns:Channel" default="00">
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="Tid">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9\.-\\/():]*"></xs:pattern>
+			<xs:maxLength value="50"></xs:maxLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A" />
+			<xs:enumeration value="V" />
+			<xs:enumeration value="T" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="otp">
+		<xs:all>
+			<xs:element name="Opts" type="tns:Opts" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element ref="dsig:Signature" minOccurs="0" maxOccurs="1" />
+		</xs:all>
+		<xs:attribute name="ts" type="xs:dateTime" use="required" />
+		<xs:attribute name="txn" type="tns:UUID" use="required" />
+		<xs:attribute name="tid" type="tns:Tid" use="optional" />
+		<xs:attribute name="ver" type="tns:Ver" use="required" />
+		<xs:attribute name="sa" type="tns:AuaCode" />
+		<!-- <xs:attribute name="ac" type="tns:AuaCode" use="required" /> -->
+		<xs:attribute name="ac" type="tns:AuaCode" use="required" />
+		<xs:attribute name="uid" type="tns:uid" use="required" />
+		<xs:attribute name="lk" type="tns:LicenseKey" use="required" />
+		<xs:attribute name="type" type="tns:Type" use="required" />
+	</xs:complexType>
+	<xs:element name="Otp" type="tns:otp" />
+</xs:schema>

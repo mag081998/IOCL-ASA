@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" >
+
+       
+	<!-- <appender name="console" class="org.apache.log4j.ConsoleAppender">
+                <param name="Target" value="System.out" />
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+                </layout>
+	</appender> --> 
+
+          <appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender"> -->
+                <!--  <param name="File" value="/opt/krdh/aadhaarlogs/symmetric/symmetric-info"/> -->
+                 <param name="File" value="E:\\logs\\MPSEDC-ASA-logs\\asa\\asa-info"/> 
+                <!-- <param name="File" value="C:\\Users\\admin\\Desktop\\aadhaarlogs\\asa\\asa-info"/> -->
+                <param name="DatePattern" value="'-'yyyy-MM-dd'.log'"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%d [%-5p] [%F:%L] - %m%n"/>
+                </layout>
+        </appender> 
+
+        <appender name="otpdbInFileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+                <param name="File" value="E:\\logs\\MPSEDC-ASA-logs\\asa\\otp-dbinfile-log"/>
+                <!--  <param name="File" value="C:\\Users\\admin\\Desktop\\aadhaarlogs\\asa\\asa-otp-dbinfile-log"/> -->
+                <param name="DatePattern" value="'-'yyyy-MM-dd'.log'"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%d [%-5p] [%F:%L] - %m%n"/>
+                </layout>
+        </appender>
+        
+        <appender name="authdbInFileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="E:\\logs\\MPSEDC-ASA-logs\\asa\\auth-dbinfile-log"/>
+                <!--  <param name="File" value="C:\\Users\\admin\\Desktop\\aadhaarlogs\\asa\\asa-auth-dbinfile-log"/> -->
+                <param name="DatePattern" value="'-'yyyy-MM-dd'.log'"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%d [%-5p] [%F:%L] - %m%n"/>
+                </layout>
+        </appender>
+        
+        <appender name="kycdbInFileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+                <param name="File" value="E:\\logs\\MPSEDC-ASA-logs\\asa\\kyc-dbinfile-log"/>
+                <!--  <param name="File" value="C:\\Users\\admin\\Desktop\\aadhaarlogs\\asa\\asa-kyc-dbinfile-log"/> -->
+                <param name="DatePattern" value="'-'yyyy-MM-dd'.log'"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%d [%-5p] [%F:%L] - %m%n"/>
+                </layout>
+        </appender>
+		
+		
+		<category name="otpdbinfile" additivity="false">
+                <level value="info"></level>
+                <appender-ref ref="otpdbInFileLogger"/>
+        </category>
+		
+		<category name="authdbinfile" additivity="false">
+                <level value="info"></level>
+                <appender-ref ref="authdbInFileLogger"/>
+        </category>
+
+         <category name="kycdbinfile" additivity="false">
+                <level value="info"></level>
+                <appender-ref ref="kycdbInFileLogger"/>
+        </category>
+
+        <!-- Application Loggers -->
+        <logger name="in.cdac.spring5" >
+                <level value="info" />
+        </logger>
+
+        <!-- 3rdparty Loggers -->
+        <logger name="org.springframework.core">
+                <level value="info" />
+        </logger>
+
+        <logger name="org.springframework.beans">
+                <level value="info" />
+        </logger>
+
+        <logger name="org.springframework.context">
+                <level value="info" />
+        </logger>
+
+        <logger name="org.springframework.web">
+                <level value="info" />
+        </logger>
+
+        <!-- Root Logger -->
+        <root>
+                <priority value="info" />
+                <appender-ref ref="logfile" />
+        </root>
+	<!-- <root>
+                <priority value="info" />
+                <appender-ref ref="console" />
+	</root> -->
+</log4j:configuration>

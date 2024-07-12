@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<cache:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!-- List of java packages that contain the jaxb generated classes from 
+		XSDs -->
+	<beans:bean id="jaxb2Marshaller"
+		class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<beans:property name="packagesToScan">
+			<beans:list>
+				<beans:value>in.gov.uidai.authentication.uid_auth_request._2</beans:value>
+				<beans:value>in.gov.uidai.authentication.uid_auth_request_data._2</beans:value>
+				<beans:value>in.gov.uidai.authentication.common.types._2</beans:value>
+				<beans:value>org.w3._2000._09.xmldsig_</beans:value>
+				<beans:value>in.gov.uidai.authentication.common.types._2</beans:value>
+				<beans:value>in.gov.uidai.authentication.uid_auth_response._2</beans:value>
+				<beans:value>generated</beans:value>
+				<beans:value>in.gov.uidai.kyc.common.types._1</beans:value>
+				<beans:value>in.gov.uidai.kyc.uid_kyc_response._1</beans:value>
+				<beans:value>in.cdac.otp_v1</beans:value>
+				<beans:value>in.cdac.aadhaarservices.util</beans:value>
+				<beans:value>in.cdac.cryptoservice</beans:value>
+				<beans:value>in.cdac.aadhaarservices.util</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- <beans:bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<beans:property name="corePoolSize" value="5" />
+		<beans:property name="maxPoolSize" value="10" />
+		<beans:property name="WaitForTasksToCompleteOnShutdown"
+			value="false" />
+	</beans:bean>  -->
+	
+	<beans:bean id="asyncExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<beans:property name="corePoolSize" value="10"/>
+		<beans:property name="maxPoolSize" value="50"/>
+		<beans:property name="queueCapacity" value="500"/>
+		<beans:property name="threadNamePrefix" value="Async-"></beans:property>
+	</beans:bean>
+
+	<!--  <beans:bean id="poolingHttpClientConnectionManager"
+		class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager"
+		destroy-method="shutdown">
+		<beans:property name="defaultMaxPerRoute" value="50" />
+		<beans:property name="maxTotal" value="100" />
+	</beans:bean>
+
+	<beans:bean id="cryptotemplate"
+		class="org.springframework.web.client.RestTemplate">
+		<beans:constructor-arg name="requestFactory">
+			<beans:bean
+				class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory"
+				destroy-method="destroy">
+				<beans:constructor-arg>
+					<beans:bean
+						class="org.apache.http.impl.client.HttpClients"
+						factory-method="createMinimal">
+						<beans:constructor-arg
+							ref="poolingHttpClientConnectionManager" />
+					</beans:bean>
+				</beans:constructor-arg>
+				<beans:property name="readTimeout" value="5000" />
+				<beans:property name="connectTimeout" value="5000" />
+			</beans:bean>
+		</beans:constructor-arg>
+	</beans:bean>  -->
+
+	<!-- <beans:bean id="poolingHttpClientConnectionManager2"
+		class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager"
+		destroy-method="shutdown">
+		<beans:property name="defaultMaxPerRoute" value="50" />
+		<beans:property name="maxTotal" value="50" />
+	</beans:bean>
+
+	<beans:bean id="RestOperations"
+		class="org.springframework.web.client.RestTemplate">
+		<beans:constructor-arg name="requestFactory">
+			<beans:bean
+				class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory"
+				destroy-method="destroy">
+				<beans:constructor-arg>
+					<beans:bean
+						class="org.apache.http.impl.client.HttpClients"
+						factory-method="createMinimal">
+						<beans:constructor-arg
+							ref="poolingHttpClientConnectionManager2" />
+					</beans:bean>
+				</beans:constructor-arg>
+				<beans:property name="readTimeout" value="12000" />
+				<beans:property name="connectTimeout" value="8000" />
+			</beans:bean>
+		</beans:constructor-arg>
+	</beans:bean>  -->
+	
+	<!-- Rest Template Timeout Configurations -->
+	<beans:bean id="RestOperations"
+		class="org.springframework.web.client.RestTemplate">
+		<beans:constructor-arg>
+			<beans:bean
+				class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+				<beans:property name="readTimeout" value="10000" />
+				<beans:property name="connectTimeout" value="6000" />
+			</beans:bean>
+		</beans:constructor-arg>
+	</beans:bean> 
+
+	<context:component-scan
+		base-package="in.cdac.aadhaarservices" />
+
+	<!-- Cache Management for Select Queries -->
+	<beans:bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<beans:property name="cacheManager" ref="ehcache" />
+	</beans:bean>
+	<beans:bean id="ehcache"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<beans:property name="configLocation"
+			value="/WEB-INF/spring/ehcache.xml" />
+		<beans:property name="shared" value="true" />
+	</beans:bean>
+</beans:beans>

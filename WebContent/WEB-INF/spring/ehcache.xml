@@ -1,0 +1,83 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd"
+	updateCheck="false"
+	monitoring="autodetect"
+	dynamicConfig="true">
+
+<!-- 	 <diskStore path="/opt/krdh/tomcattemp" /> -->
+	<!-- name needs to be war specific so that no memory issue occurs  -->
+	
+	
+	<cache name="AUADETAILS"
+	 maxEntriesLocalHeap="5000"
+	 maxEntriesLocalDisk="6000"
+	 eternal="false"
+	 diskSpoolBufferSizeMB="20"
+	 timeToIdleSeconds="3600"
+	 timeToLiveSeconds="4800"
+	 memoryStoreEvictionPolicy="LFU"
+	 transactionalMode="off">
+	 	<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="ASALKDETAILS" 
+      maxEntriesLocalHeap="5000"
+      maxEntriesLocalDisk="6000" 
+      eternal="false" 
+      diskSpoolBufferSizeMB="20" 
+      timeToIdleSeconds="3600" 
+      timeToLiveSeconds="4800" 
+      memoryStoreEvictionPolicy="LFU" 
+      transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    
+    <cache name="ASASCHEMADETAILS" 
+      maxEntriesLocalHeap="5000"
+      maxEntriesLocalDisk="6000" 
+      eternal="false" 
+      diskSpoolBufferSizeMB="20" 
+      timeToIdleSeconds="3600" 
+      timeToLiveSeconds="4800" 
+      memoryStoreEvictionPolicy="LFU" 
+      transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    
+    <cache name="ASASIGNDETAILS" 
+      maxEntriesLocalHeap="5000"
+      maxEntriesLocalDisk="6000" 
+      eternal="false" 
+      diskSpoolBufferSizeMB="20" 
+      timeToIdleSeconds="3600" 
+      timeToLiveSeconds="4800" 
+      memoryStoreEvictionPolicy="LFU" 
+      transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    
+    <cache name="ASACRYPTOACLKCERTDET" 
+      maxEntriesLocalHeap="5000"
+      maxEntriesLocalDisk="6000" 
+      eternal="false" 
+      diskSpoolBufferSizeMB="20" 
+      timeToIdleSeconds="3600" 
+      timeToLiveSeconds="4800" 
+      memoryStoreEvictionPolicy="LFU" 
+      transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    
+    <!-- <cache name="CertCache" 
+      maxEntriesLocalHeap="5000"
+      maxEntriesLocalDisk="6000" 
+      eternal="false" 
+      diskSpoolBufferSizeMB="50" 
+      timeToIdleSeconds="14400" 
+      timeToLiveSeconds="28800" 
+      memoryStoreEvictionPolicy="LFU" 
+      transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache> -->
+    
+</ehcache>

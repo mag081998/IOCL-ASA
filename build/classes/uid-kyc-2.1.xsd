@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			KYC XSD defines the required data types for the
+			KYC-XML
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="Ver">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2.5" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Ra">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="O" />
+			<xs:enumeration value="F" />
+			<xs:enumeration value="I" />
+			<xs:enumeration value="FO" />
+			<xs:enumeration value="IO" />
+			<xs:enumeration value="FI" />
+			<xs:enumeration value="FIO" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Rc">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Y" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Lr">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Y" />
+			<xs:enumeration value="N" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pfr">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Y" />
+			<xs:enumeration value="N" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="De">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Y" />
+			<xs:enumeration value="N" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base64Data">
+		<xs:restriction base="xs:base64Binary">
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="kycReq">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:element name="Rad" type="Base64Data" maxOccurs="1"
+				minOccurs="1"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="ver" type="Ver" use="required" />
+		<xs:attribute name="ra" type="Ra" use="required" />
+		<xs:attribute name="rc" type="Rc" use="required" />
+		<xs:attribute name="lr" type="Lr" use="optional" />
+		<xs:attribute name="pfr" type="Pfr" use="optional" />
+		<xs:attribute name="de" type="De" use="optional" />
+	</xs:complexType>
+	<xs:element name="Kyc" type="kycReq" />
+</xs:schema>
