@@ -46,8 +46,6 @@
                         <param name="ConversionPattern" value="%d [%-5p] [%F:%L] - %m%n"/>
                 </layout>
         </appender>
-		
-		
 		<category name="otpdbinfile" additivity="false">
                 <level value="info"></level>
                 <appender-ref ref="otpdbInFileLogger"/>
